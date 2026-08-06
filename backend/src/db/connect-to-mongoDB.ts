@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import { MONGODB_URI } from "../config/global.ts";
+import { logger } from "../utils/logger.ts";
 
 async function connectToMongoDB() {
   try {
     await mongoose.connect(MONGODB_URI!);
-    console.log("connected to DB")
+    logger.info("Connected to MongoDB");
   } catch (error) {
-    console.log("error in connecting to mongodb", error);
+    logger.error("Failed to connected to MongoDB", error);
     process.exit(1);
   }
 }

@@ -9,6 +9,7 @@ import type {
   ValidationProblemDetails,
 } from "../types/problem-details.types.ts";
 import mongoose from "mongoose";
+import { logger } from "../utils/logger.ts";
 
 const PROBLEM_TYPE_BASE = "https://example.com/problems";
 
@@ -64,7 +65,7 @@ export function errorHandler(
       } satisfies ProblemDetails);
     return;
   }
-  console.error(err);
+  logger.error("Unhandled error", err);
   res
     .status(500)
     .type("application/problem+json")

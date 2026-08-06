@@ -12,6 +12,12 @@ export class ValidationError extends AppError {
         super("Validation Failed", "One or more fields are invalid.", { errors }, `${PROBLEM_TYPE_BASE}/validation-error`);
     }
 }
+export class UnauthorizedError extends AppError {
+    status = 401;
+    constructor(detail) {
+        super(standardTitleFor(401), detail);
+    }
+}
 export class NotFoundError extends AppError {
     status = 404;
     constructor(detail) {

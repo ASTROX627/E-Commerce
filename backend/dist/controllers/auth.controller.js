@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import { ConflictError } from "../errors/http-errors.js";
-export async function signup(req, res) {
+import { asyncHandler } from "../utils/async-handler.js";
+export const signup = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -8,7 +9,7 @@ export async function signup(req, res) {
     }
     const user = await User.create({ name, email, password });
     res.status(201).json({ id: user._id, name: user.name, email: user.email });
-}
+});
 export async function login(req, res) {
     res.send("login up route");
 }

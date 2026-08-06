@@ -23,6 +23,14 @@ export class ValidationError extends AppError {
   }
 }
 
+export class UnauthorizedError extends AppError {
+  readonly status = 401;
+
+  constructor(detail?: string) {
+    super(standardTitleFor(401), detail);
+  }
+}
+
 export class NotFoundError extends AppError {
   readonly status = 404;
 

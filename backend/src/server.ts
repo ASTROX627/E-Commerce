@@ -1,24 +1,25 @@
-import dns from "node:dns";
-import express, { type Express } from "express";
-import { PORT } from "./config/global.ts";
-import authRoutes from "./routes/auth.route.ts";
+import { configureDNS } from "./config/dns.ts";
 import connectToMongoDB from "./db/connect-to-mongoDB.ts";
-import { errorHandler } from "./middlewares/error-handler.middleware.ts";
+import app from "./app.ts";
+import { PORT } from "./config/global.ts";
+import { logger } from "./utils/logger.ts";
 
-dns.setServers(["8.8.8.8"]);
+async function startServer() {
+  try {
+    configureDNS();
 
-const app: Express = express();
-const port = PORT;
+    await connectToMongoDB();
 
-app.use(express.json());
+    app.listen(PORT, () => {
+      logger.info(`Server is running`, {
+        port: PORT,
+        url: `http://localhost:${PORT}`,
+      });
+    });
+  } catch (error) {
+    logger.error("Could not running server",error);
+    process.exit(1);
+  }
+}
 
-app.use("/api/auth", authRoutes);
-
-app.use(errorHandler);
-
-app.listen(port, () => {
-  console.log(`server is running on http://localhost:${port}`);
-  connectToMongoDB();
-});
-
-export default app;
+startServer();
