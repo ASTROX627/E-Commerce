@@ -1,7 +1,8 @@
 .env
-/node_modules
-/backend/dist
-/backend/generated/prisma
-/backend/.agents
-/backend/.claude
-/backend/.windsurf
+node_modules
+backend/dist
+backend/generated/prisma
+backend/.agents
+backend/.claude
+backend/.windsurf
+backend/src/generated/prisma
