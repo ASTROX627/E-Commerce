@@ -8,4 +8,5 @@ export interface SignupResponseBody {
   id: string;
   name: string;
   email: string;
+  accessToken: string;
 }
