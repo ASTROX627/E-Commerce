@@ -1,7 +1,7 @@
 import { SignJWT } from "jose";
 import type { SignJwtOptions } from "../types/jwt.types.ts";
 
-export async function signJtw({
+export async function signJwt({
   secret,
   subject,
   jti,

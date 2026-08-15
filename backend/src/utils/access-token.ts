@@ -5,7 +5,7 @@ import {
   JWT_ISSUER,
 } from "../config/global.ts";
 import type { GenerateAccessTokenInput } from "../types/token.types.ts";
-import { signJtw } from "./jwt.ts";
+import { signJwt } from "./jwt.ts";
 
 const accessSecret = new TextEncoder().encode(JWT_ACCESS_SECRET!);
 
@@ -16,7 +16,7 @@ export async function generateAccessToken({
   role,
   version,
 }: GenerateAccessTokenInput): Promise<string> {
-  return signJtw({
+  return signJwt({
     secret: accessSecret,
     subject: sub,
     jti,

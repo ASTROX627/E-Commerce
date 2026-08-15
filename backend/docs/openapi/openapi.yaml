@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: E-Commerce API
+  version: 1.0.0
+  description: >
+    RESTful API for the e-commerce platform. All error responses follow
+    RFC 9457 (Problem Details for HTTP APIs) with Content-Type: application/problem+json.
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local development
+  - url: https://api.example.com/api
+    description: Production
+
+tags:
+  - name: Auth
+    description: Signup, login, token refresh, and logout
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      $ref: "./components/security-schemes.yaml#/bearerAuth"
+  schemas:
+    ProblemDetails:
+      $ref: "./components/schemas/problem-details.yaml#/ProblemDetails"
+    ValidationProblemDetails:
+      $ref: "./components/schemas/problem-details.yaml#/ValidationProblemDetails"
+
+paths:
+  /auth/signup:
+    $ref: "./paths/auth/signup.yaml"

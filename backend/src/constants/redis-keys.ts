@@ -3,7 +3,7 @@ export function refreshTokenKey(userId: string, jti: string): string {
 }
 
 export function refreshTokenPattern(userId: string): string {
-  return `refresh-token:${userId}`;
+  return `refresh-token:${userId}:*`;
 }
 
 export function tokenVersionKey(userId: string): string {

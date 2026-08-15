@@ -13,6 +13,7 @@ export const signup: Controller<SignupRequestBody, SignupResponseBody> = asyncHa
       httpOnly: true,
       secure: IS_PRODUCTION,
       sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       path: "/api/auth"
     })
     res.status(201).json({

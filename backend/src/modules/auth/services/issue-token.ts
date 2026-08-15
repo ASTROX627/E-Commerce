@@ -18,7 +18,7 @@ export async function issueToken(user: User): Promise<TokenPair> {
   const accessToken = await generateAccessToken({
     sub: user.id,
     jti: accessJti,
-    clientId: JWT_CLIENT_ID,
+    clientId: JWT_CLIENT_ID!,
     role: user.role,
     version,
   });

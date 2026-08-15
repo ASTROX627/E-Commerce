@@ -1,0 +1,36 @@
+SignupRequestBody:
+  type: object
+  required:
+    - name
+    - email
+    - password
+  properties:
+    name:
+      type: string
+      minLength: 1
+      example: "Ali Rezaei"
+    email:
+      type: string
+      format: email
+      example: "ali@example.com"
+    password:
+      type: string
+      minLength: 8
+      maxLength: 72
+      pattern: '^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$'
+      example: "StrongPass123"
+
+SignupResponseBody:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: string
+    email:
+      type: string
+      format: email
+    accessToken:
+      type: string
+      description: JWT access token (short-lived, ~15 minutes)

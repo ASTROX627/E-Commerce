@@ -6,3 +6,4 @@ backend/.agents
 backend/.claude
 backend/.windsurf
 backend/src/generated/prisma
+backend/openapi.generated.yaml

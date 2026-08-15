@@ -1,0 +1,42 @@
+ProblemDetails:
+  type: object
+  description: >
+    RFC 9457 Problem Details object returned for all error responses.
+  required:
+    - type
+    - title
+    - status
+  properties:
+    type:
+      type: string
+      format: uri
+      example: "https://example.com/problems/conflict"
+    title:
+      type: string
+      example: "Conflict"
+    status:
+      type: integer
+      example: 409
+    detail:
+      type: string
+      example: "A user with this email already exists."
+    instance:
+      type: string
+      example: "/api/auth/signup"
+
+ValidationProblemDetails:
+  allOf:
+    - $ref: "#/ProblemDetails"
+    - type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            email: ["must be a valid email"]
+            password: ["password must be at least 6 characters"]

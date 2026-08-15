@@ -1,0 +1,29 @@
+post:
+  tags:
+    - Auth
+  summary: Register a new user
+  operationId: signup
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/auth/signup.yaml#/SignupRequestBody"
+  responses:
+    "201":
+      description: User created successfully.
+      headers:
+        Set-Cookie:
+          schema:
+            type: string
+          description: httpOnly refresh token cookie (path=/api/auth)
+      content:
+        application/json:
+          schema:
+            $ref: "../../components/schemas/auth/signup.yaml#/SignupResponseBody"
+    "409":
+      $ref: "../../components/responses/errors.yaml#/ConflictError"
+    "422":
+      $ref: "../../components/responses/errors.yaml#/ValidationError"
+    "500":
+      $ref: "../../components/responses/errors.yaml#/InternalServerError"

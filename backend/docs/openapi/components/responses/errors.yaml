@@ -1,0 +1,38 @@
+ConflictError:
+  description: A resource with this value already exists.
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/problem-details.yaml#/ProblemDetails"
+      example:
+        type: "https://example.com/problems/conflict"
+        title: "Conflict"
+        status: 409
+        detail: "A user with this email already exists."
+        instance: "/api/auth/signup"
+
+ValidationError:
+  description: One or more fields failed validation.
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/problem-details.yaml#/ValidationProblemDetails"
+
+UnauthorizedError:
+  description: Missing, invalid, or expired access token.
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/problem-details.yaml#/ProblemDetails"
+      example:
+        type: "about:blank"
+        title: "Unauthorized"
+        status: 401
+        instance: "/api/auth/refresh"
+
+InternalServerError:
+  description: An unexpected error occurred.
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/problem-details.yaml#/ProblemDetails"
