@@ -7,3 +7,11 @@ export interface SignJwtOptions {
   audience?: string | undefined;
   claims?: Record<string, unknown>
 }
+
+export interface VerifyJwtOptions {
+  secret: Uint8Array;
+  issuer?: string | undefined;
+  audience?: string | undefined;
+  invalidMessage: string;
+  expiredMessage: string;
+}

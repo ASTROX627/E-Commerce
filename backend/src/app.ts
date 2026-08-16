@@ -5,11 +5,12 @@ import routes from "./routes/index.route.ts";
 import { IS_DEVELOPMENT } from "./config/global.ts";
 import swaggerUi from "swagger-ui-express";
 import { openApiSpec } from "./docs/swagger.ts";
+import cookieParser from "cookie-parser"
 
 const app: Express = express();
 
 app.use(express.json());
-
+app.use(cookieParser());
 app.use("/api", routes);
 
 if(IS_DEVELOPMENT){

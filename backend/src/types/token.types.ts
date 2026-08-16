@@ -10,6 +10,7 @@ export interface AccessTokenPayload {
   iat: number;
   exp: number;
   ver: number;
+  [key: string]: unknown
 }
 
 export interface RefreshTokenPayload {
@@ -17,6 +18,7 @@ export interface RefreshTokenPayload {
   jti: string;
   iat: number;
   exp: number;
+  [key: string]: unknown;
 }
 
 export interface TokenPair {
