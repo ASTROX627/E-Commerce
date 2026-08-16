@@ -1,6 +1,5 @@
 import {
   JWT_CLIENT_ID,
-  JWT_REFRESH_EXPIRES_IN,
   JWT_REFRESH_EXPIRES_IN_SECONDS,
 } from "../../../config/global.ts";
 import type { User } from "../../../generated/prisma/client.ts";
