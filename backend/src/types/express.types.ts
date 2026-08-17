@@ -2,7 +2,7 @@ import type {RequestHandler} from "express";
 import type { ParsedQs } from "qs";
 
 export interface RouteParams {
-  [key: string]: string | string[];
+  [key: string]: string 
 }
 
 export type Controller<
