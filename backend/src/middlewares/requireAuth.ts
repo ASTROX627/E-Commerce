@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import type { Controller } from "../types/express.types.ts";
 import { asyncHandler } from "../utils/async-handler.ts";
 import { UnauthorizedError } from "../errors/http-errors.ts";
-import { verifyAccessToken } from "../utils/access-token.ts";
+import { verifyAccessToken } from "../utils/verify-access-token.ts";
 import { getTokenVersion } from "../repositories/token-version.ts";
 
 export const requireAuth: Controller = asyncHandler(

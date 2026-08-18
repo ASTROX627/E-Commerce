@@ -5,7 +5,7 @@ import { signupSchema } from "../validations/signup.ts";
 import { refresh } from "../controllers/refresh.controller.ts";
 import { login } from "../controllers/login.controller.ts";
 import { logout } from "../controllers/logout.controller.ts";
-import { requireAuth } from "../../../middlewares/auth.middleware.ts";
+import { requireAuth } from "../../../middlewares/requireAuth.ts";
 import { logoutAllDevice } from "../controllers/logout-all.controller.ts";
 import { loginSchema } from "../validations/login.ts";
 

@@ -8,7 +8,7 @@ import {
 } from "../../../repositories/refresh-token.ts";
 import type { TokenPair } from "../../../types/token.types.ts";
 import { hashToken } from "../../../utils/hash-token.ts";
-import { verifyRefreshToken } from "../../../utils/refresh-token.ts";
+import { verifyRefreshToken } from "../../../utils/verfify-refresh-token.ts";
 import { issueToken } from "./issue-token.ts";
 
 export async function refreshToken(
