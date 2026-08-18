@@ -1,0 +1,29 @@
+post:
+  tags:
+    - Auth
+  summary: Login a user
+  operationId: login
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/auth/login.yaml#/LoginRequestBody"
+  responses:
+    "200":
+      description: User logged in successfully.
+      headers:
+        set-Cookie:
+          schema:
+            type: string
+          description: httpOnly refresh token cookie (path=/api/auth)
+      content:
+        application/json:
+          schema:
+            $ref: "../../components/schemas/auth/login.yaml#/LoginResponseBody"
+    "401":
+      $ref: "../../components/responses/errors.yaml#/UnauthorizedError"
+    "422":
+      $ref: "../../components/responses/errors.yaml#/ValidationError"
+    "500":
+      $ref: "../../components/responses/errors.yaml#/InternalServerError"

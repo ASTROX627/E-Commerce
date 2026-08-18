@@ -1,0 +1,27 @@
+LoginRequestBody:
+  type: object
+  required:
+    - email
+    - password
+  properties:
+    email:
+      type: string
+      format: email
+      example: ali@example.com
+    password:
+      type: string
+      minLength: 8
+      example: "StrongPass123"
+
+LoginResponseBody:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+    email:
+      type: string
+      format: email
+    accessToken:
+      type: string
+      description: JWT access token (short-lived ~15 minutes)

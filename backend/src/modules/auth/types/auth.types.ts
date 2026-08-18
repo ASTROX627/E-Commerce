@@ -10,3 +10,14 @@ export interface SignupResponseBody {
   email: string;
   accessToken: string;
 }
+
+export interface LoginRequestBody {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponseBody {
+  id: string;
+  email: string;
+  accessToken: string
+}
