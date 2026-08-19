@@ -1,13 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { parseDurationToSeconds } from "./duration.ts";
 
-describe("parseDurationToSeconds", () => {
+describe("parse duration to seconds", () => {
   it.each([
-    ["15m", 900],
-    ["7d", 604800],
-    ["1h", 3600],
-    ["30s", 30],
-  ])("converts %s to %d seconds", (input, expected) => {
+    { input: "15m", expected: 900 },
+    { input: "7d", expected: 604800 },
+    { input: "1h", expected: 3600 },
+    { input: "30s", expected: 30 },
+  ])("converts %s to %d seconds", ({ input, expected }) => {
     expect(parseDurationToSeconds(input)).toBe(expected);
   });
 
