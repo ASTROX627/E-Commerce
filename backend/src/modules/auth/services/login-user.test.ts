@@ -1,11 +1,11 @@
-import { beforeEach } from "node:test";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { findUserByEmail } from "../repositories/auth-lookups.ts";
 import { loginUser } from "./login-user.ts";
 import { UnauthorizedError } from "../../../errors/http-errors.ts";
 import type { User } from "../../../generated/prisma/client.ts";
 import { comparePassword } from "../../../utils/compare-password.ts";
 import { issueToken } from "./issue-token.ts";
+import type { TokenPair } from "../../../types/token.types.ts";
 
 vi.mock("../repositories/auth-lookups.ts");
 vi.mock("../../../utils/hash-password.ts");
@@ -42,15 +42,24 @@ describe("login user", () => {
       email: "a@b.com",
       password: "hashed",
     } as unknown as User;
-    vi.mocked(findUserByEmail).mockResolvedValue(mockUser);
-    vi.mocked(comparePassword).mockResolvedValue(true);
-    vi.mocked(issueToken).mockResolvedValue({
+
+    const mockTokens = {
       accessToken: "access",
       refreshToken: "refresh",
-    });
+    } as TokenPair;
+    vi.mocked(findUserByEmail).mockResolvedValue(mockUser);
+    vi.mocked(comparePassword).mockResolvedValue(true);
+    vi.mocked(issueToken).mockResolvedValue(mockTokens);
 
     const result = await loginUser("a@b.com", "correct");
-    expect(result.tokens.accessToken).toBe("access");
+
     expect(comparePassword).toHaveBeenCalledWith("correct", "hashed");
+
+    expect(issueToken).toHaveBeenCalledWith(mockUser);
+
+    expect(result).toEqual({
+      user: mockUser,
+      tokens: mockTokens,
+    });
   });
 });

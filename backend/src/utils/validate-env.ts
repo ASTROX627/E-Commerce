@@ -1,5 +1,5 @@
 export function validateEnv(
-  vars: Record<string, string | string | undefined>,
+  vars: Record<string, string | undefined>,
 ): void {
   const missing = Object.entries(vars)
     .filter(([, value]) => !value)

@@ -1,11 +1,11 @@
 import { defineConfig } from "vitest/config";
-
 export default defineConfig({
   test: {
     globals: true,
     environment: "node",
-    include: ["backend/src/**/*.test.ts"],
+    include: ["backend/tests/integration/**/*.test.ts"],
     setupFiles: ["./backend/tests/setup.ts"],
-    clearMocks: true,
+    maxWorkers: 1,
+    isolate: false,
   },
 });
