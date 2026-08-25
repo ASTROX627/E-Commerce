@@ -7,7 +7,8 @@ import { hashPassword } from "../../../utils/hash-password.ts";
 import { prisma } from "../../../lib/prisma.ts";
 import { issueToken } from "./issue-token.ts";
 import type { TokenPair } from "../../../types/token.types.ts";
-import { HASHED_PASSWORD, PASSWORD } from "../../../test/constants/test-constant.ts";
+import { HASHED_PASSWORD, PASSWORD } from "../../../../tests/constants/test-constans.ts";
+
 
 vi.mock("../repositories/auth-lookups.ts");
 vi.mock("../../../utils/hash-password.ts");

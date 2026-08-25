@@ -1,11 +1,12 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
+import type { ParamsDictionary } from "express-serve-static-core";
 import type { ParsedQs } from "qs";
-import type { RouteParams } from "../types/express.types.ts";
+
 
 export function asyncHandler<
   ReqBody = unknown,
   ResBody = unknown,
-  Params extends RouteParams = RouteParams,
+  Params extends ParamsDictionary = ParamsDictionary,
   ReqQuery extends ParsedQs = ParsedQs,
 >(
   fn: (
