@@ -1,4 +1,3 @@
-// backend/tests/helpers/auth-flow.ts
 import request from "supertest";
 import app from "../../src/app.ts";
 
