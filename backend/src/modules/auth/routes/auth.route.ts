@@ -13,7 +13,7 @@ const router: Router = express.Router();
 
 router.post("/signup", validate(signupSchema), signup);
 router.post("/login", validate(loginSchema), login);
-router.post("/logout", requireAuth, logout);
+router.post("/logout", logout);
 router.post("/refresh", refresh);
 router.post("/logout-all", requireAuth, logoutAllDevice);
 
