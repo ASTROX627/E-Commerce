@@ -12,6 +12,7 @@ export async function createUser(
   password: string,
 ): Promise<{ user: User; tokens: TokenPair }> {
   const userExists = await findUserByEmail(email);
+
   if (userExists) {
     throw new ConflictError("A user with this email already exists.");
   }
