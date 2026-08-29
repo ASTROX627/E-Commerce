@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "next": "16.3.3",
     "react": "19.2.8",
     "react-dom": "19.2.8"
@@ -19,8 +20,14 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "^9",
+    "eslint": "^10.9.1",
     "eslint-config-next": "16.3.3",
+    "gulp": "^5.0.1",
+    "gulp-cli": "^3.1.0",
+    "gulp-rename": "^2.1.0",
+    "gulp-replace": "^1.1.4",
+    "gulp-svgmin": "^4.1.0",
+    "gulp-wrap": "^0.15.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

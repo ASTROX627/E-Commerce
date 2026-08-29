@@ -1,1 +1,58 @@
 @import "tailwindcss";
+
+:root {
+  /* base colors */
+  --current: currentColor;
+  --ec-c-transparent: oklch(0 0 0 / 0);
+  --ec-c-white: oklch(1 0 0 / 1);
+  --ec-c-dark: oklch(0 0 0 / 1);
+  --ec-c-primary: oklch(0.67 0.18 257.63 / 1);
+  --ec-c-secondary: oklch(0.69 0.17 154.09 / 1);
+  --ec-c-footer: oklch(0.65 0.05 234.15 / 1);
+  --ec-c-base: oklch(0.58 0 0 / 1);
+  --ec-c-selected-text: oklch(0.72 0.19 50.54 / 1);
+  --ec-c-notification: oklch(0.64 0.24 32.01 / 1);
+}
+
+@theme {
+  --color-current: var(--current);
+  --color-transparent: var(--ec-c-transparent);
+  --color-white: var(--ec-c-white);
+  --color-dark: var(--ec-c-dark);
+  --color-primary: var(--ec-c-primary);
+  --color-secondary: var(--ec-c-secondary);
+  --color-footer: var(--ec-c-footer);
+  --color-base: var(--ec-c-base);
+  --color-selected-text: var(--ec-c-selected-text);
+  --color-notification: var(--ec-c-notification);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-lato);
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply max-w-sm;
+  }
+
+  @media (min-width: 32rem) {
+    .container {
+      @apply max-w-3xl;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .container {
+      @apply max-w-5xl;
+    }
+  }
+
+  @media (min-width: 96rem) {
+    .container {
+      @apply max-w-7xl;
+    }
+  }
+}
