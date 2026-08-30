@@ -107,7 +107,7 @@
 
 @layer utilities {
   .container {
-    @apply max-w-sm;
+    @apply w-full max-w-sm;
   }
 
   @media (min-width: 32rem) {
@@ -122,9 +122,21 @@
     }
   }
 
-  @media (min-width: 96rem) {
+  @media (min-width: 80rem) {
     .container {
       @apply max-w-7xl;
+    }
+  }
+
+  @media (min-width: 96rem) {
+    .container {
+      max-width: 90rem;
+    }
+  }
+
+  @media (min-width: 120rem) {
+    .container {
+      max-width: 105rem;
     }
   }
 }
