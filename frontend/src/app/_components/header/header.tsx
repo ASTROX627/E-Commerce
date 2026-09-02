@@ -15,7 +15,7 @@ import { BottomHeader } from "./bottom-header";
 export const Header: React.FC = () => {
   return (
     <>
-      <div className="mt-8 container mx-auto">
+      <div className="mt-8">
         <div className="xl:flex justify-between items-center">
           <div className="lg:flex justify-between items-center gap-x-5">
             <div className="flex justify-between items-center">

@@ -12,7 +12,7 @@ const lato = Lato({
 export default function RootLayout({ children }: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`${lato.variable}`}>
-      <body>{children}</body>
+      <body className="container mx-auto">{children}</body>
     </html>
   );
 }
