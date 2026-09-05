@@ -8,7 +8,6 @@ export interface SignupResponseBody {
   id: string;
   name: string;
   email: string;
-  accessToken: string;
 }
 
 export interface LoginRequestBody {
@@ -20,4 +19,15 @@ export interface LoginResponseBody {
   id: string;
   email: string;
   accessToken: string
+}
+
+export interface EmailRequestBody {
+  email: string;
+  otp?: string;
+  newPassword?: string;
+}
+
+export interface EmailResponseBody {
+  email: string;
+  accessToken: string;
 }

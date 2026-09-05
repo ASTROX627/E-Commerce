@@ -4,8 +4,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "node",
-    include: ["backend/src/**/*.test.ts", "backend/tests/integration/**/*.integration.test.ts"],
-    setupFiles: ["./backend/tests/setup.ts"],
+    include: ["src/**/*.test.ts", "tests/integration/**/*.integration.test.ts"],
+    setupFiles: ["./tests/setup.ts"],
     clearMocks: true,
   },
 });

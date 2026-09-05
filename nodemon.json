@@ -1,5 +1,0 @@
-{
-  "watch": ["backend/src"],
-  "ext": "ts",
-  "exec": "node --import tsx backend/src/server.ts"
-}

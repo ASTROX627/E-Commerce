@@ -24,6 +24,6 @@
 
     "noEmit": true
   },
-  "include": ["backend/src/**/*.ts", "backend/tests/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["node_modules"]
 }

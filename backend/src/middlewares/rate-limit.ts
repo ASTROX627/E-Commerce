@@ -1,7 +1,7 @@
 import {rateLimit} from "express-rate-limit"
 import { IS_DEVELOPMENT } from "../config/global.ts"
 
-export const limiter = rateLimit({
+export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: IS_DEVELOPMENT ? Number.POSITIVE_INFINITY : 10,
   standardHeaders: "draft-8",

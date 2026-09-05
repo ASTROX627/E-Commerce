@@ -16,6 +16,10 @@ export const JWT_AUDIENCE = process.env.JWT_AUDIENCE;
 export const JWT_CLIENT_ID = process.env.JWT_CLIENT_ID;
 export const JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN ?? "7d";
 export const JWT_ACCESS_EXPIRES_IN = process.env.JWT_ACCESS_EXPIRES_IN ?? "15m";
+export const GMAIL_USER = process.env.GMAIL_USER;
+export const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
+export const MAIL_FROM_NAME = process.env.MAIL_FROM_NAME ?? "Luminae";
+export const OTP_EXPIRES_IN_SECONDS = Number(process.env.OTP_EXPIRES_IN_SECONDS ?? 600)
 
 
 validateEnv({
@@ -26,6 +30,8 @@ validateEnv({
   JWT_ISSUER,
   JWT_AUDIENCE,
   JWT_CLIENT_ID,
+  GMAIL_USER,
+  GMAIL_APP_PASSWORD
 });
 
 export const JWT_REFRESH_EXPIRES_IN_SECONDS = parseDurationToSeconds(

@@ -2,15 +2,15 @@ import { ConflictError } from "../../../errors/http-errors.ts";
 import type { User } from "../../../generated/prisma/client.ts";
 import { prisma } from "../../../lib/prisma.ts";
 import { findUserByEmail } from "../repositories/auth-lookups.ts";
-import type { TokenPair } from "../../../types/token.types.ts";
 import { hashPassword } from "../../../utils/hash-password.ts";
-import { issueToken } from "./issue-token.ts";
+import { logger } from "../../../utils/logger.ts";
+import { sendVerificationCode } from "./send-verification-code.ts";
 
 export async function createUser(
   name: string,
   email: string,
   password: string,
-): Promise<{ user: User; tokens: TokenPair }> {
+): Promise<User> {
   const userExists = await findUserByEmail(email);
 
   if (userExists) {
@@ -22,6 +22,9 @@ export async function createUser(
     data: { name, email, password: hashedPassword },
   });
 
-  const tokens = await issueToken(user);
-  return { user, tokens };
+  await sendVerificationCode(email).catch((error) => {
+    logger.info("Failed to send verification code", error);
+  });
+
+  return user;
 }
