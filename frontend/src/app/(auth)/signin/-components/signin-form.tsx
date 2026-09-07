@@ -1,9 +1,9 @@
 "use client";
 
-import { IconAlt, IconShowPass } from "@/app/_components/icons";
+import { IconAlt } from "@/app/_components/icons";
 import { TextInput } from "@/app/_components/text-input";
 import Link from "next/link";
-import { FromProps } from "../../from.types";
+import { FromProps } from "../../types/from.types";
 
 export const SigninForm: React.FC<FromProps> = ({ className }) => {
   return (
@@ -25,9 +25,6 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
           placeholder="Password"
           htmlFor="password"
           inputId="password"
-          icon={
-            <IconShowPass className="text-base-300" width={16} height={12} />
-          }
           type="password"
         />
       </div>

@@ -4,6 +4,7 @@ export { default as IconAlt } from './src/alt';
 export { default as IconArrow } from './src/Arrow';
 export { default as IconCard } from './src/Card';
 export { default as IconCategories } from './src/categories';
+export { default as IconEyeOff } from './src/eye-off';
 export { default as IconFavorites } from './src/Favorites';
 export { default as IconLogo } from './src/Logo';
 export { default as IconMenu } from './src/Menu';
