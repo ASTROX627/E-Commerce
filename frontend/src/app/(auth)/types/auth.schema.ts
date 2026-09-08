@@ -14,12 +14,13 @@ export const SignupSchema = v.pipe(
     name: NameSchema,
     password: v.pipe(
       v.string(),
+      v.minLength(1, "password is required"),
       v.minLength(8, "password must be at least 8 characters"),
       v.regex(/[A-Z]/, "password must be at least have a capital letter"),
       v.regex(/[a-z]/, "password must be at least have a small letter"),
       v.regex(/[0-9]/, "password must at least have a number"),
     ),
-    confirmPassword: v.string(),
+    confirmPassword: v.pipe(v.string(), v.minLength(1, "confirm password is required"))
   }),
   v.forward(
     v.partialCheck(
