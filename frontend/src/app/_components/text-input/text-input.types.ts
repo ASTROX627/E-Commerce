@@ -1,25 +1,21 @@
 import { InputHTMLAttributes } from "react";
 import {
-  DeepMap,
-  FieldError,
+  FieldErrors,
   FieldValues,
   Path,
-  RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
 
-export type TextInputType = InputHTMLAttributes<HTMLInputElement> & {
+type TextInputType = Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
   label: string;
   placeholder: string;
-  htmlFor: "email" | "password" | "confirm-password" | "name";
-  inputId: "email" | "password" | "confirm-password" | "name";
+  id: string;
   icon?: React.ReactNode;
-  type: "text" | "password";
+  type?: "text" | "password" | "email";
 };
 
 export type TextInputProps<TFormValues extends FieldValues> = TextInputType & {
   register: UseFormRegister<TFormValues>;
   name: Path<TFormValues>;
-  rules?: RegisterOptions<TFormValues, Path<TFormValues>>;
-  errors: Partial<DeepMap<TFormValues, FieldError>>;
+  errors: FieldErrors<TFormValues>;
 };

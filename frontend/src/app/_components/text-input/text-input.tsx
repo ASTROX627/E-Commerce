@@ -8,8 +8,7 @@ import { FieldValues, get } from "react-hook-form";
 export const TextInput = <TFormValues extends FieldValues>({
   label,
   placeholder,
-  htmlFor,
-  inputId,
+  id,
   icon,
   type,
   name,
@@ -24,24 +23,27 @@ export const TextInput = <TFormValues extends FieldValues>({
 
   return (
     <div className="mt-2">
-      <label htmlFor={htmlFor} className="text-sm">
+      <label htmlFor={id} className="text-sm">
         {label}
       </label>
 
       <div className="relative mt-1">
         <input
-          type={isPassword && !showPassword ? "password" : "text"}
-          id={inputId}
+          type={isPassword && !showPassword ? "password" : type}
+          id={id}
           placeholder={placeholder}
           {...register(name)}
           {...props}
           className={`w-full h-10 py-4 px-4.5 border border-base-300 rounded-md text-sm ${hasError ? "border-notification" : ""}`}
+          aria-invalid={hasError}
         />
 
         <div className="absolute inset-y-0 right-0 flex items-center pr-2">
           {isPassword ? (
             <button
               type="button"
+              aria-label={showPassword ? "hide password": "show password"}
+              aria-pressed={showPassword}
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? (
@@ -60,7 +62,7 @@ export const TextInput = <TFormValues extends FieldValues>({
         </div>
       </div>
       {hasError && (
-        <p className="mt-1 text-sm text-notification">{error.message}</p>
+        <p className="mt-1 text-sm text-notification" id={`${id}-error`}>{error.message}</p>
       )}
     </div>
   );

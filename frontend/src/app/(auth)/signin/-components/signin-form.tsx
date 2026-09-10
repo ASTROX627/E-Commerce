@@ -9,9 +9,17 @@ import { valibotResolver } from "@hookform/resolvers/valibot";
 import { SigninSchema } from "../../types/auth.schema";
 
 export const SigninForm: React.FC<FromProps> = ({ className }) => {
-  const {register, handleSubmit, formState: {errors}} = useForm<SigninInput>({
-    resolver: valibotResolver(SigninSchema)
-  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SigninInput>({
+    resolver: valibotResolver(SigninSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const onSubmit: SubmitHandler<SigninInput> = (data) => console.log(data);
 
@@ -25,10 +33,10 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
         <TextInput<SigninInput>
           label="Email"
           placeholder="Email address"
-          htmlFor="email"
-          inputId="email"
+          id="email"
+          autoComplete="email"
           icon={<IconAlt className="text-base-300" width={24} height={24} />}
-          type="text"
+          type="email"
           register={register}
           name={"email"}
           errors={errors}
@@ -36,9 +44,9 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
         <TextInput<SigninInput>
           label="Password"
           placeholder="Password"
-          htmlFor="password"
-          inputId="password"
+          id="password"
           type="password"
+          autoComplete="new-password"
           register={register}
           name={"password"}
           errors={errors}
@@ -54,7 +62,7 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
       </div>
       <div className="mt-7 text-center">
         <button className="h-14 w-full rounded-md bg-base-300 text-white">
-          SIGN IN
+          {isSubmitting ? "SIGNING IN..." : "SIGN IN"}
         </button>
       </div>
     </form>

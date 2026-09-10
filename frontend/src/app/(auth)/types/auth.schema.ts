@@ -1,32 +1,40 @@
 import * as v from "valibot";
 
 const EmailSchema = v.pipe(
-  v.string("email is required"),
+  v.string("Email is required"),
   v.trim(),
-  v.email("please enter a valid email"),
+  v.email("Please enter a valid email"),
 );
 
-const NameSchema = v.pipe(v.string(), v.minLength(1, "name is required"));
+const NameSchema = v.pipe(
+  v.string("Name is required"),
+  v.trim(),
+  v.minLength(1, "Name is required"),
+);
+
+const PasswordSchema = v.pipe(
+  v.string("Password is required"),
+  v.minLength(8, "Password must be at least 8 characters"),
+  v.regex(/[A-Z]/, "Password must contain an uppercase letter"),
+  v.regex(/[a-z]/, "Password must contain a lowercase letter"),
+  v.regex(/[0-9]/, "Password must contain a number"),
+);
 
 export const SignupSchema = v.pipe(
   v.object({
-    email: EmailSchema,
     name: NameSchema,
-    password: v.pipe(
-      v.string(),
-      v.minLength(1, "password is required"),
-      v.minLength(8, "password must be at least 8 characters"),
-      v.regex(/[A-Z]/, "password must be at least have a capital letter"),
-      v.regex(/[a-z]/, "password must be at least have a small letter"),
-      v.regex(/[0-9]/, "password must at least have a number"),
+    email: EmailSchema,
+    password: PasswordSchema,
+    confirmPassword: v.pipe(
+      v.string("Confirm password is required"),
+      v.minLength(1, "Confirm password is required"),
     ),
-    confirmPassword: v.pipe(v.string(), v.minLength(1, "confirm password is required"))
   }),
   v.forward(
     v.partialCheck(
       [["password"], ["confirmPassword"]],
-      (input) => input.password === input.confirmPassword,
-      "passwords do not match",
+      ({ password, confirmPassword }) => password === confirmPassword,
+      "Passwords do not match",
     ),
     ["confirmPassword"],
   ),
@@ -34,5 +42,8 @@ export const SignupSchema = v.pipe(
 
 export const SigninSchema = v.object({
   email: EmailSchema,
-  password: v.pipe(v.string(), v.minLength(1, "password is required")),
+  password: v.pipe(
+    v.string("Password is required"),
+    v.minLength(1, "Password is required"),
+  ),
 });

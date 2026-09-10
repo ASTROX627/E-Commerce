@@ -1,0 +1,9 @@
+.env
+node_modules
+dist
+generated/prisma
+.agents
+.claude
+.windsurf
+src/generated/prisma
+openapi.generated.yaml

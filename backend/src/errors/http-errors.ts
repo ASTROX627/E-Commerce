@@ -38,3 +38,11 @@ export class NotFoundError extends AppError {
     super(standardTitleFor(404), detail);
   }
 }
+
+
+export class TooManyRequestsError extends AppError {
+  readonly status = 429;
+  constructor(detail?: string){
+    super(standardTitleFor(429), detail)
+  }
+}

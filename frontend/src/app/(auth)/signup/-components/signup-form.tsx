@@ -11,9 +11,15 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<SignupInput>({
     resolver: valibotResolver(SignupSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    }
   });
   const onSubmit: SubmitHandler<SignupInput> = (data) => console.log(data);
   return (
@@ -26,9 +32,9 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
         <TextInput<SignupInput>
           label="Name"
           placeholder="Full name"
-          htmlFor="name"
-          inputId="name"
+          id="name"
           type="text"
+          autoComplete="name"
           register={register}
           name={"name"}
           errors={errors}
@@ -36,10 +42,10 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
         <TextInput<SignupInput>
           label="Email"
           placeholder="Email address"
-          htmlFor="email"
-          inputId="email"
+          id="email"
           icon={<IconAlt className="text-base-300" width={24} height={24} />}
-          type="text"
+          type="email"
+          autoComplete="email"
           register={register}
           name={"email"}
           errors={errors}
@@ -47,25 +53,25 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
         <TextInput<SignupInput>
           label="Password"
           placeholder="Password"
-          htmlFor="password"
-          inputId="password"
+          id="password"
           icon={
             <IconShowPass className="text-base-300" width={16} height={12} />
           }
           type="password"
+          autoComplete="new-password"
           register={register}
           name={"password"}
           errors={errors}
         />
         <TextInput<SignupInput>
-          label="ConfirmPassword"
+          label="Confirm Password"
           placeholder="Confirm password"
-          htmlFor="confirm-password"
-          inputId="confirm-password"
+          id="confirmPassword"
           icon={
             <IconShowPass className="text-base-300" width={16} height={12} />
           }
           type="password"
+          autoComplete="new-password"
           register={register}
           name={"confirmPassword"}
           errors={errors}
@@ -76,7 +82,7 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
           type="submit"
           className="h-14 w-full rounded-md bg-primary-700 text-white"
         >
-          SIGN UP
+          {isSubmitting ? "CREATING ACCOUNT..." : "SIGN UP"}
         </button>
       </div>
     </form>
