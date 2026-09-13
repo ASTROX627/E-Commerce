@@ -1,104 +1,192 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+// import { describe, it, expect, vi, beforeEach } from "vitest";
+// import { findUserByEmail } from "../repositories/auth-lookups.ts";
+// import type { User } from "../../../generated/prisma/client.ts";
+// import { createUser } from "./create-user.ts";
+// import { ConflictError } from "../../../errors/http-errors.ts";
+// import { hashPassword } from "../../../utils/hash-password.ts";
+// import { prisma } from "../../../lib/prisma.ts";
+// import { issueToken } from "./issue-token.ts";
+// import type { TokenPair } from "../../../types/token.types.ts";
+// import { HASHED_PASSWORD, PASSWORD } from "../../../../tests/constants/test-constans.ts";
+
+// vi.mock("../repositories/auth-lookups.ts");
+// vi.mock("../../../utils/hash-password.ts");
+// vi.mock("../../../lib/prisma.ts");
+// vi.mock("../services/issue-token.ts");
+
+// describe("create user", () => {
+//   beforeEach(() => {
+//     vi.clearAllMocks();
+//   });
+
+//   it("throws conflict error when user exists", async () => {
+//     vi.mocked(findUserByEmail).mockResolvedValue({
+//       email: "a@b.com",
+//     } as unknown as User);
+
+//     await expect(createUser("ali", "a@b.com", "password")).rejects.toThrow(
+//       ConflictError,
+//     );
+//   });
+
+//   it("hashes the password before creating the user", async () => {
+
+//     vi.mocked(findUserByEmail).mockResolvedValue(null);
+//     vi.mocked(hashPassword).mockResolvedValue(HASHED_PASSWORD);
+
+//     const mockUser = {
+//       name: "ali",
+//       email: "a@b.com",
+//       password: HASHED_PASSWORD,
+//     } as unknown as User;
+
+//     vi.spyOn(prisma.user, "create").mockResolvedValue(mockUser);
+
+//     vi.mocked(issueToken).mockResolvedValue({
+//       accessToken: "access",
+//       refreshToken: "refresh",
+//     });
+
+//     await createUser("ali", "a@b.com", PASSWORD);
+
+//     expect(hashPassword).toHaveBeenCalledWith(PASSWORD);
+
+//     expect(prisma.user.create).toHaveBeenCalledWith({
+//       data: {
+//         name: "ali",
+//         email: "a@b.com",
+//         password: HASHED_PASSWORD,
+//       },
+//     });
+//   });
+
+//   it("creates user and returns tokens", async () => {
+//     const password = "password";
+//     const hashedPassword = "hashed-password";
+
+//     const mockUser = {
+//       id: "1",
+//       name: "ali",
+//       email: "a@b.com",
+//       password: hashedPassword,
+//     } as unknown as User;
+
+//     const mockTokens = {
+//       accessToken: "access",
+//       refreshToken: "refresh",
+//     }as TokenPair;
+
+//     vi.mocked(findUserByEmail).mockResolvedValue(null);
+//     vi.mocked(hashPassword).mockResolvedValue(hashedPassword);
+//     vi.spyOn(prisma.user, "create").mockResolvedValue(mockUser);
+//     vi.mocked(issueToken).mockResolvedValue(mockTokens);
+
+//     const result = await createUser("ali", "a@b.com", password);
+
+//     expect(hashPassword).toHaveBeenCalledWith(password);
+
+//     expect(prisma.user.create).toHaveBeenCalledWith({
+//       data: {
+//         name: "ali",
+//         email: "a@b.com",
+//         password: hashedPassword,
+//       },
+//     });
+
+//     expect(issueToken).toHaveBeenCalledWith(mockUser);
+
+//     expect(result).toEqual({
+//       user: mockUser,
+//       tokens: mockTokens,
+//     });
+//   });
+// });
+
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { findUserByEmail } from "../repositories/auth-lookups.ts";
 import type { User } from "../../../generated/prisma/client.ts";
 import { createUser } from "./create-user.ts";
 import { ConflictError } from "../../../errors/http-errors.ts";
-import { hashPassword } from "../../../utils/hash-password.ts";
 import { prisma } from "../../../lib/prisma.ts";
-import { issueToken } from "./issue-token.ts";
-import type { TokenPair } from "../../../types/token.types.ts";
-import { HASHED_PASSWORD, PASSWORD } from "../../../../tests/constants/test-constans.ts";
-
+import { hashPassword } from "../../../utils/hash-password.ts";
+import { sendVerificationCode } from "./send-verification-code.ts";
 
 vi.mock("../repositories/auth-lookups.ts");
+vi.mock("../../../lib/prisma.ts", () => ({
+  prisma: { user: { create: vi.fn() } },
+}));
 vi.mock("../../../utils/hash-password.ts");
-vi.mock("../../../lib/prisma.ts");
-vi.mock("../services/issue-token.ts");
+vi.mock("./send-verification-code.ts");
 
 describe("create user", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(sendVerificationCode).mockResolvedValue(undefined);
   });
 
   it("throws conflict error when user exists", async () => {
     vi.mocked(findUserByEmail).mockResolvedValue({
+      id: "1",
+    } as unknown as User);
+
+    await expect(
+      createUser("name", "a@b.com", "StrongPass123"),
+    ).rejects.toThrow(ConflictError);
+
+    expect(prisma.user.create).not.toHaveBeenCalled();
+  });
+
+  it("hashes the password befor user create", async () => {
+    vi.mocked(findUserByEmail).mockResolvedValue(null);
+    vi.mocked(hashPassword).mockResolvedValue("hashed-password");
+    vi.mocked(prisma.user.create).mockResolvedValue({
+      id: "1",
       email: "a@b.com",
     } as unknown as User);
 
-    await expect(createUser("ali", "a@b.com", "password")).rejects.toThrow(
-      ConflictError,
-    );
-  });
-
-  it("hashes the password before creating the user", async () => {
-
-    vi.mocked(findUserByEmail).mockResolvedValue(null);
-    vi.mocked(hashPassword).mockResolvedValue(HASHED_PASSWORD);
-
-    const mockUser = {
-      name: "ali",
-      email: "a@b.com",
-      password: HASHED_PASSWORD,
-    } as unknown as User;
-
-    vi.spyOn(prisma.user, "create").mockResolvedValue(mockUser);
-
-    vi.mocked(issueToken).mockResolvedValue({
-      accessToken: "access",
-      refreshToken: "refresh",
-    });
-
-    await createUser("ali", "a@b.com", PASSWORD);
-
-    expect(hashPassword).toHaveBeenCalledWith(PASSWORD);
+    await createUser("user", "a@b.com", "password");
 
     expect(prisma.user.create).toHaveBeenCalledWith({
-      data: {
-        name: "ali",
-        email: "a@b.com",
-        password: HASHED_PASSWORD,
-      },
+      data: { name: "user", email: "a@b.com", password: "hashed-password" },
     });
   });
 
-  it("creates user and returns tokens", async () => {
-    const password = "password";
-    const hashedPassword = "hashed-password";
-
-    const mockUser = {
+  it("sends verification code after the user create", async () => {
+    vi.mocked(findUserByEmail).mockResolvedValue(null);
+    vi.mocked(hashPassword).mockResolvedValue("hashed-password");
+    vi.mocked(prisma.user.create).mockResolvedValue({
       id: "1",
-      name: "ali",
       email: "a@b.com",
-      password: hashedPassword,
-    } as unknown as User;
+    } as unknown as User);
 
-    const mockTokens = {
-      accessToken: "access",
-      refreshToken: "refresh",
-    }as TokenPair;
+    await createUser("user", "a@b.com", "password");
 
+    expect(sendVerificationCode).toHaveBeenCalledWith("a@b.com");
+  });
+
+  it("does not throw if sending the verification email fails", async () => {
     vi.mocked(findUserByEmail).mockResolvedValue(null);
-    vi.mocked(hashPassword).mockResolvedValue(hashedPassword);
-    vi.spyOn(prisma.user, "create").mockResolvedValue(mockUser);
-    vi.mocked(issueToken).mockResolvedValue(mockTokens);
+    vi.mocked(hashPassword).mockResolvedValue("hashed-password");
+    vi.mocked(prisma.user.create).mockResolvedValue({
+      id: "1",
+      email: "a@b.com",
+    } as unknown as User);
+    vi.mocked(sendVerificationCode).mockRejectedValue(new Error("stmp error"));
 
-    const result = await createUser("ali", "a@b.com", password);
+    await expect(
+      createUser("user", "a@b.com", "password"),
+    ).resolves.toBeDefined();
+  });
 
-    expect(hashPassword).toHaveBeenCalledWith(password);
+  it("returns the user", async () => {
+    vi.mocked(findUserByEmail).mockResolvedValue(null);
+    vi.mocked(hashPassword).mockResolvedValue("hashed-password");
+    const mockedUser = { id: "1", email: "a@b.com" };
+    vi.mocked(prisma.user.create).mockResolvedValue(
+      mockedUser as unknown as User,
+    );
 
-    expect(prisma.user.create).toHaveBeenCalledWith({
-      data: {
-        name: "ali",
-        email: "a@b.com",
-        password: hashedPassword,
-      },
-    });
-
-    expect(issueToken).toHaveBeenCalledWith(mockUser);
-
-    expect(result).toEqual({
-      user: mockUser,
-      tokens: mockTokens,
-    });
+    const result = await createUser("user", "a@b.com", "password");
+    expect(result).toEqual(mockedUser);
   });
 });
