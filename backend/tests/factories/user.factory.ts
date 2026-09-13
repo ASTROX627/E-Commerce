@@ -8,6 +8,7 @@ interface CreateTestUserOptions {
   email?: string;
   password?: string;
   role?: UserRole;
+  emailVerified?: boolean;
 }
 
 let userCount = 0;
@@ -21,9 +22,16 @@ export async function createUserTest(
     email = `test-user-${userCount}@example.com`,
     password = "StrongPass123",
     role = UserRole.CUSTOMER,
+    emailVerified = true,
   } = options;
 
   return prisma.user.create({
-    data: { name, email, password: await hashPassword(password), role },
+    data: {
+      name,
+      email,
+      password: await hashPassword(password),
+      role,
+      emailVerified,
+    },
   });
 }
