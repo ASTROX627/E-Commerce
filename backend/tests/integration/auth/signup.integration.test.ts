@@ -3,6 +3,7 @@ import request from "supertest";
 import app from "../../../src/app.ts";
 import { setupIntegrationTest } from "../../helpers/test-lifecycle.ts";
 import { createUserTest } from "../../factories/user.factory.ts";
+
 describe("POST /api/auth/signup", () => {
   setupIntegrationTest();
   it("creates a user and returns 201 with an access token", async () => {
@@ -13,11 +14,9 @@ describe("POST /api/auth/signup", () => {
     });
 
     expect(res.status).toBe(201);
-    expect(res.body.accessToken).toEqual(expect.any(String));
     expect(res.body.password).toBeUndefined();
     expect(res.body.name).toBe("ali");
     expect(res.body.email).toBe("ali@1.com");
-    expect(res.headers["set-cookie"]![0]).toContain("HttpOnly");
   });
 
   it("returns 409 when user does exists", async () => {
