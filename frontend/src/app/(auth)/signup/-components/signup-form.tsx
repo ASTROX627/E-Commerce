@@ -6,6 +6,7 @@ import { FromProps, SignupInput } from "../../types/from.types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SignupSchema } from "../../types/auth.schema";
 import { valibotResolver } from "@hookform/resolvers/valibot";
+import { api } from "@/core/http-service/http-service";
 
 export const SignupForm: React.FC<FromProps> = ({ className }) => {
   const {
@@ -21,7 +22,12 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
       confirmPassword: ""
     }
   });
-  const onSubmit: SubmitHandler<SignupInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SignupInput> = async(data) => {
+    await api("/auth/signup", {
+      method: "POST",
+      body: data
+    });
+  }
   return (
     <form
       className={`container mx-auto mt-8 lg:w-1/2 lg:pl-8 lg:border-l border-base-400 ${className ?? ""}`}

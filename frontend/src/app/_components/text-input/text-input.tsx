@@ -29,7 +29,7 @@ export const TextInput = <TFormValues extends FieldValues>({
 
       <div className="relative mt-1">
         <input
-          type={isPassword && !showPassword ? "password" : type}
+          type={showPassword && isPassword ? "text" : type}
           id={id}
           placeholder={placeholder}
           {...register(name)}
@@ -42,9 +42,9 @@ export const TextInput = <TFormValues extends FieldValues>({
           {isPassword ? (
             <button
               type="button"
-              aria-label={showPassword ? "hide password": "show password"}
+              aria-label={showPassword ? "hide password" : "show password"}
               aria-pressed={showPassword}
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
                 <IconEyeOff className="text-base-300" width={22} height={16} />
@@ -62,7 +62,9 @@ export const TextInput = <TFormValues extends FieldValues>({
         </div>
       </div>
       {hasError && (
-        <p className="mt-1 text-sm text-notification" id={`${id}-error`}>{error.message}</p>
+        <p className="mt-1 text-sm text-notification" id={`${id}-error`}>
+          {error.message}
+        </p>
       )}
     </div>
   );

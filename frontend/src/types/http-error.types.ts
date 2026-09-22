@@ -4,7 +4,6 @@ interface Problem {
   status: number;
   detail?: string | undefined;
   instance?: string | undefined;
-  [key: string]: unknown;
 }
 
 interface ConflictError extends Problem {}
@@ -28,4 +27,5 @@ export type {
   UnauthorizedError,
   NotFoundError,
   ConflictError,
+  ValidationError,
 };

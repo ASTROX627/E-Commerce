@@ -1,12 +1,25 @@
 import { API_URL } from "@/configs/global";
+import { ApiError } from "@/types/http-error.types";
 import { ofetch } from "ofetch";
+import { errorHandler } from "./http-error-strategies";
 
-const api = ofetch.create({
+export const api = ofetch.create({
   baseURL: API_URL,
-  headers:{
-    "Content-Type": "application/json"
+  headers: {
+    "Content-Type": "application/json",
   },
-  onResponseError: ({response, error}) => {
-    
-  }
-})
+  onResponse({ response }) {
+    response;
+  },
+  onRequestError({ response }) {
+    if (response) {
+      const statusCode = response.status;
+
+      if (statusCode >= 400) {
+        const errorData: ApiError = response._data;
+        errorHandler[statusCode](errorData);
+      }
+    }
+  },
+});
+
