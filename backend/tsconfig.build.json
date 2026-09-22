@@ -1,3 +1,4 @@
+// tsconfig.build.ts
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {

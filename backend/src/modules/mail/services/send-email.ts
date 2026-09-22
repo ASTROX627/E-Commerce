@@ -15,5 +15,5 @@ export async function sendEmail({
     html,
   });
 
-  logger.info("Email sent", { to, subject });
+  logger.info({ to, subject }, "Email sent");
 }

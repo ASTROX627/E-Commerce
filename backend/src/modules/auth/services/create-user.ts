@@ -23,7 +23,7 @@ export async function createUser(
   });
 
   await sendVerificationCode(email).catch((error) => {
-    logger.info("Failed to send verification code", error);
+    logger.info({err: error}, "Failed to send verification code");
   });
 
   return user;

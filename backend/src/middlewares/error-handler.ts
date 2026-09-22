@@ -86,7 +86,7 @@ export function errorHandler(
     return;
   }
 
-  logger.error("Unhandled error", err);
+  logger.error({err}, "Unhandled error");
   res
     .status(500)
     .type("application/problem+json")

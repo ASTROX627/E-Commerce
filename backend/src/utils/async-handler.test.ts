@@ -1,9 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import { describe, it, expect, vi } from "vitest";
 import { asyncHandler } from "./async-handler.ts";
-import type { RouteParams } from "../types/express.types.ts";
 
-const mockReq = {} as Request<RouteParams>;
+const mockReq = {} as Request;
 const mockRes = {} as Response;
 
 describe("async handler", () => {

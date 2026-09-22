@@ -13,13 +13,16 @@ async function startServer() {
     await connectToRedis();
 
     app.listen(PORT, () => {
-      logger.info(`Server is running`, {
-        port: PORT,
-        url: `http://localhost:${PORT}`,
-      });
+      logger.info(
+        {
+          port: PORT,
+          url: `http://localhost:${PORT}`,
+        },
+        `Server is running`,
+      );
     });
   } catch (error) {
-    logger.error("Could not running server", error);
+    logger.error({ err: error }, "Could not running server");
     process.exit(1);
   }
 }

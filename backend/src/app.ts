@@ -7,10 +7,12 @@ import swaggerUi from "swagger-ui-express";
 import { openApiSpec } from "./docs/swagger.ts";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
+import { httpLogger } from "./middlewares/http-logger.ts";
 
 const app: Express = express();
 
 app.use(helmet())
+app.use(httpLogger)
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", routes);
