@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { SignupSchema } from "../../types/auth.schema";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { api } from "@/core/http-service/http-service";
+import { SignupResponseBody } from '../../../../../../backend/dist/modules/auth/types/auth.types';
 
 export const SignupForm: React.FC<FromProps> = ({ className }) => {
   const {
@@ -22,12 +23,15 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
       confirmPassword: ""
     }
   });
-  const onSubmit: SubmitHandler<SignupInput> = async(data) => {
-    await api("/auth/signup", {
+
+  const onSubmit: SubmitHandler<SignupInput> = async ({name, email, password}) => {
+    const response = await api<SignupResponseBody>("/auth/signup", {
       method: "POST",
-      body: data
+      body: {name, email, password}
     });
-  }
+
+    console.log(response)
+  };
   return (
     <form
       className={`container mx-auto mt-8 lg:w-1/2 lg:pl-8 lg:border-l border-base-400 ${className ?? ""}`}
@@ -87,6 +91,7 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
         <button
           type="submit"
           className="h-14 w-full rounded-md bg-primary-700 text-white"
+          disabled={isSubmitting}
         >
           {isSubmitting ? "CREATING ACCOUNT..." : "SIGN UP"}
         </button>

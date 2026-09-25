@@ -5,21 +5,20 @@ import { errorHandler } from "./http-error-strategies";
 
 export const api = ofetch.create({
   baseURL: API_URL,
+  credentials: "include",
   headers: {
     "Content-Type": "application/json",
   },
-  onResponse({ response }) {
-    response;
-  },
-  onRequestError({ response }) {
-    if (response) {
-      const statusCode = response.status;
 
-      if (statusCode >= 400) {
-        const errorData: ApiError = response._data;
-        errorHandler[statusCode](errorData);
-      }
+  onRequestError({ error }) {
+    throw new Error(error.message || "Network error");
+  },
+
+  onResponseError({ response }) {
+    const handler = errorHandler[response.status];
+
+    if (handler) {
+      handler(response._data as ApiError);
     }
   },
 });
-

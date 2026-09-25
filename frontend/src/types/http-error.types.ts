@@ -7,19 +7,19 @@ interface Problem {
 }
 
 interface ConflictError extends Problem {}
-interface ValidationError extends Problem {}
+interface ValidationError extends Problem {
+  errors: Record<string, string[]>;
+}
 interface UnauthorizedError extends Problem {}
 interface NotFoundError extends Problem {}
 interface TooManyRequestsError extends Problem {}
-
 
 type ApiError =
   | UnauthorizedError
   | NotFoundError
   | ConflictError
   | ValidationError
-  | TooManyRequestsError
-
+  | TooManyRequestsError;
 
 export type {
   Problem,
@@ -28,4 +28,5 @@ export type {
   NotFoundError,
   ConflictError,
   ValidationError,
+  TooManyRequestsError,
 };

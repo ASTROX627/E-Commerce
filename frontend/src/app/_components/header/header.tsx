@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
         <div className="xl:flex justify-between items-center">
           <div className="lg:flex justify-between items-center gap-x-5">
             <div className="flex justify-between items-center">
-              <IconMenu width={21} height={14} className="lg:hidden" />
+              <IconMenu  className="lg:hidden" />
               <div className="flex gap-x-3 items-center">
                 <Image
                   src="/Logo.png"
@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
                 />
                 <h1 className="font-bold text-xl lg:text-3xl">Luminae</h1>
               </div>
-              <IconCard width={24} height={24} className="lg:hidden" />
+              <IconCard  className="lg:hidden" />
             </div>
             <SearchBox />
           </div>

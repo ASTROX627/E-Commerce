@@ -1,6 +1,6 @@
 "use client";
 
-import { IconArrow, IconVector } from "../icons";
+import { IconArrow, IconSearch } from "../icons";
 
 export const SearchBox: React.FC = () => {
   return (
@@ -13,9 +13,9 @@ export const SearchBox: React.FC = () => {
       <div className="absolute inset-y-0 right-0 flex items-center">
         <div className="flex items-center">
           <p>All categories</p>
-          <IconArrow width={24} height={24} />
+          <IconArrow />
         </div>
-        <IconVector
+        <IconSearch
           className="border-l border-base px-2"
           width={36}
           height={36}

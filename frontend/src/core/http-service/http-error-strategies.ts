@@ -1,24 +1,20 @@
-import { TooManyRequestsError } from "../../../../backend/src/errors/http-errors";
 import {
   ApiError,
   ConflictError,
   NotFoundError,
   UnauthorizedError,
   ValidationError,
+  TooManyRequestsError
 } from "@/types/http-error.types";
 
 export type ApiErrorHandler = (errorData: ApiError) => void;
 
-export const conflictErrorStrategy: ApiErrorHandler = () => {
-  throw {
-    detail: "conflict",
-  } as ConflictError;
+export const conflictErrorStrategy: ApiErrorHandler = (errorData) => {
+  throw errorData;
 };
 
 export const validationErrorStrategy: ApiErrorHandler = (errorData) => {
-  throw {
-    ...errorData,
-  } as ValidationError;
+  throw errorData;
 };
 
 export const unauthorizedErrorStrategy: ApiErrorHandler = () => {

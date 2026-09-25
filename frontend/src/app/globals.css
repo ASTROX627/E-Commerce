@@ -107,7 +107,7 @@
 
 @layer utilities {
   .container {
-    @apply w-full max-w-sm;
+    @apply w-full max-w-84;
   }
 
   @media (min-width: 32rem) {
