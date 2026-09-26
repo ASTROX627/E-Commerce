@@ -12,8 +12,9 @@ import { authLimiter } from "../../../middlewares/rate-limit.ts";
 import { otpRateLimiter } from "../../../middlewares/otp-rate-limit.ts";
 import { forgotPasswordSchema, resendCodeSchema, resetPasswordSchema, verifyEmailSchema } from "../validations/otp.ts";
 import { forgotPassword } from "../controllers/forgot-password.controller.ts";
-import { resendVerificationCode, verifyEmailController } from "../controllers/verify-email.controller.ts";
+import { verifyEmailController } from "../controllers/verify-email.controller.ts";
 import { resetPasswordController } from "../controllers/reset-password.controller.ts";
+import { resendVerificationCode } from "../controllers/resend-verification-code.controller.ts";
 
 const router: Router = express.Router();
 

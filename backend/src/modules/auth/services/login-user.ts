@@ -16,6 +16,10 @@ export async function loginUser(
     throw new UnauthorizedError("Invalid email or password");
   }
 
+  if(!user.emailVerified) {
+    throw new UnauthorizedError("Your email is not verified");
+  }
+
   const isPasswordCorrect = await comparePassword(password, user.password);
 
   if (!isPasswordCorrect) {

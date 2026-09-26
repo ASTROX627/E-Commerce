@@ -19,9 +19,4 @@ export const verifyEmailController: Controller<
   res.status(200).json({ email: email, accessToken: tokens.accessToken });
 });
 
-export const resendVerificationCode: Controller<EmailRequestBody> =
-  asyncHandler(async (req, res) => {
-    const { email } = req.body;
-    await sendVerificationCode(email);
-    res.status(200).json({ message: "Verification code send successfully" });
-  });
+

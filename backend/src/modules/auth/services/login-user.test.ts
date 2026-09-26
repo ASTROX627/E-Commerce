@@ -24,6 +24,20 @@ describe("login user", () => {
     );
   });
 
+  it("throws unauthorized error when email is not verified", async () => {
+    const mockUser = {
+      id: "1",
+      email: "a@b.com",
+      password: "hashed",
+      emailVerified: false,
+    } as unknown as User;
+
+    vi.mocked(findUserByEmail).mockResolvedValue(mockUser);
+    vi.mocked(comparePassword).mockResolvedValue(true);
+
+    await expect(loginUser("a@b.com", "password")).rejects.toThrow(UnauthorizedError);
+  })
+
   it("throws unauthorized error when password is wrong", async () => {
     vi.mocked(findUserByEmail).mockResolvedValue({
       id: "1",
@@ -41,6 +55,7 @@ describe("login user", () => {
       id: "1",
       email: "a@b.com",
       password: "hashed",
+      emailVerified: true,
     } as unknown as User;
 
     const mockTokens = {

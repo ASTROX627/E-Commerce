@@ -34,3 +34,17 @@ paths:
     $ref: "./paths/auth/signup.yaml"
   /auth/login:
     $ref: "./paths/auth/login.yaml"
+  # /auth/logout:
+  #   $ref: "./paths/auth/logout.yaml"
+  # /auth/refresh:
+  #   $ref: "./paths/auth/refresh.yaml"
+  # /auth/logout-all:
+  #   $ref: "./paths/auth/logout-all.yaml"
+  # /auth/forgot-password:
+  #   $ref: "./paths/auth/forgot-password.yaml"
+  # /auth/verify-email:
+  #   $ref: "./paths/auth/verify-email.yaml"
+  # /auth/change-password:
+  #   $ref: "./paths/auth/change-password.yaml"
+  # /auth/resend-verification-code:
+  #   $ref: "./paths/auth/resend-verification-code.yaml"
