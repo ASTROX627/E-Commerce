@@ -1,7 +1,8 @@
-
-import {Lato} from "next/font/google"
+import { Lato } from "next/font/google";
 import "./globals.css";
 import { Header } from "./_components/header";
+import { QueryProvider } from "@/providers/react-query-provider";
+import { ReduxProvider } from "@/providers/redux-provider";
 
 const lato = Lato({
   display: "swap",
@@ -10,12 +11,20 @@ const lato = Lato({
   variable: "--font-lato",
 });
 
-export default function RootLayout({ children }: {children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={`${lato.variable}`}>
       <body>
-        <Header/>
-        {children}
+        <ReduxProvider>
+          <QueryProvider>
+            <Header />
+            {children}
+          </QueryProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

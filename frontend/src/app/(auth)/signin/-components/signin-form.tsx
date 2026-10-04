@@ -7,6 +7,9 @@ import { FromProps, SigninInput } from "../../types/from.types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { SigninSchema } from "../../types/auth.schema";
+import { api } from "@/core/http-service/http-service";
+import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 export const SigninForm: React.FC<FromProps> = ({ className }) => {
   const {
@@ -21,7 +24,17 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
     },
   });
 
-  const onSubmit: SubmitHandler<SigninInput> = (data) => console.log(data);
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<SigninInput> = async ({ email, password }) => {
+    const response = await api.raw("/auth/login", {
+      method: "POST",
+      body: { email, password },
+    });
+    if (response.ok) {
+      router.push("/");
+    }
+  };
 
   return (
     <form

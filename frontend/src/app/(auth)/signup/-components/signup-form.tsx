@@ -7,7 +7,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { SignupSchema } from "../../types/auth.schema";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { api } from "@/core/http-service/http-service";
-import { SignupResponseBody } from '../../../../../../backend/dist/modules/auth/types/auth.types';
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useAppDispatch } from "@/hooks/redux-hooks";
+import { showNotification, showNotifications } from "@/stores/thunks/notification-thunks";
 
 export const SignupForm: React.FC<FromProps> = ({ className }) => {
   const {
@@ -20,17 +23,38 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
       name: "",
       email: "",
       password: "",
-      confirmPassword: ""
-    }
+      confirmPassword: "",
+    },
   });
 
-  const onSubmit: SubmitHandler<SignupInput> = async ({name, email, password}) => {
-    const response = await api<SignupResponseBody>("/auth/signup", {
-      method: "POST",
-      body: {name, email, password}
-    });
+  const dispatch = useAppDispatch();
 
-    console.log(response)
+  const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<SignupInput> = async ({
+    name,
+    email,
+    password,
+  }) => {
+    startTransition(async () => {
+      const response = await api.raw("/auth/signup", {
+        method: "POST",
+        body: { name, email, password },
+      });
+
+      if (response.status === 201) {
+        dispatch(
+          showNotification({
+            message: "Signup successfully",
+            type: "info",
+          })
+        )
+        router.push("/verify");
+      }
+
+    })
   };
   return (
     <form
@@ -93,7 +117,7 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
           className="h-14 w-full rounded-md bg-primary-700 text-white"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "CREATING ACCOUNT..." : "SIGN UP"}
+          {isPending ? "CREATING ACCOUNT..." : "SIGN UP"}
         </button>
       </div>
     </form>

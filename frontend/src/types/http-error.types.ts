@@ -21,6 +21,8 @@ type ApiError =
   | ValidationError
   | TooManyRequestsError;
 
+export const isValidationError = (problem: Problem): problem is ValidationError => "errors" in problem && typeof (problem as ValidationError).errors === "object" && (problem as ValidationError).errors !== null;
+
 export type {
   Problem,
   ApiError,
