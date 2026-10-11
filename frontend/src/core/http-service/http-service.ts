@@ -2,6 +2,7 @@ import { API_URL } from "@/configs/global";
 import { ApiError } from "@/types/http-error.types";
 import { ofetch } from "ofetch";
 import { errorHandler } from "./http-error-strategies";
+import { toProblem } from "@/utils/to-problem";
 
 export const api = ofetch.create({
   baseURL: API_URL,
@@ -15,10 +16,6 @@ export const api = ofetch.create({
   },
 
   onResponseError({ response }) {
-    const handler = errorHandler[response.status];
-
-    if (handler) {
-      handler(response._data as ApiError);
-    }
+    throw toProblem(response.status, response._data);
   },
 });

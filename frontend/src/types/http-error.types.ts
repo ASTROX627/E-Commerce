@@ -1,7 +1,7 @@
 interface Problem {
-  type: string;
-  title: string;
-  status: number;
+  type?: string;
+  title?: string;
+  status?: number;
   detail?: string | undefined;
   instance?: string | undefined;
 }

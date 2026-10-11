@@ -4,18 +4,16 @@ import { IconAlt } from "@/app/_components/icons";
 import { TextInput } from "@/app/_components/text-input";
 import Link from "next/link";
 import { FromProps, SigninInput } from "../../types/from.types";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { SigninSchema } from "../../types/auth.schema";
-import { api } from "@/core/http-service/http-service";
-import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useSignin } from "@/hooks/auth/use-signin";
 
 export const SigninForm: React.FC<FromProps> = ({ className }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<SigninInput>({
     resolver: valibotResolver(SigninSchema),
     defaultValues: {
@@ -24,21 +22,11 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
     },
   });
 
-  const router = useRouter();
-
-  const onSubmit: SubmitHandler<SigninInput> = async ({ email, password }) => {
-    const response = await api.raw("/auth/login", {
-      method: "POST",
-      body: { email, password },
-    });
-    if (response.ok) {
-      router.push("/");
-    }
-  };
+  const {mutate, isPending} = useSignin();
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => mutate(data))}
       className={`container mx-auto mt-8 lg:w-1/2 lg:pr-8 lg:border-r border-base-400 ${className ?? ""}`}
     >
       <h2 className="font-semibold">Sign in</h2>
@@ -75,7 +63,7 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
       </div>
       <div className="mt-7 text-center">
         <button className="h-14 w-full rounded-md bg-base-300 text-white">
-          {isSubmitting ? "SIGNING IN..." : "SIGN IN"}
+          {isPending ? "SIGNING IN..." : "SIGN IN"}
         </button>
       </div>
     </form>

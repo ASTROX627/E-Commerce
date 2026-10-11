@@ -2,23 +2,8 @@ import { AppDispatch } from "@/stores/store";
 import { showNotifications } from "@/stores/thunks/notification-thunks";
 import { isValidationError, Problem } from "@/types/http-error.types";
 import { Notification } from "@/types/notification.types";
+import { problemToNotifications } from "@/utils/problem-to-notificaion";
 import { MutationCache, QueryClient } from "@tanstack/react-query";
-
-const problemToNotifications = (
-  problem: Problem,
-): Omit<Notification, "id">[] => {
-  if (isValidationError(problem)) {
-    return Object.values(problem.errors).flatMap((messages) =>
-      messages.map((message) => ({ message, type: "error" as const })),
-    );
-  }
-
-  if (problem?.detail) {
-    return [{ message: problem.detail, type: "error" }];
-  }
-
-  return [];
-};
 
 export const createQueryClient = (dispatch: AppDispatch) =>
   new QueryClient({

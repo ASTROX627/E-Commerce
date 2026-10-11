@@ -3,14 +3,10 @@
 import { IconAlt, IconShowPass } from "@/app/_components/icons";
 import { TextInput } from "@/app/_components/text-input";
 import { FromProps, SignupInput } from "../../types/from.types";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { SignupSchema } from "../../types/auth.schema";
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { api } from "@/core/http-service/http-service";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { useAppDispatch } from "@/hooks/redux-hooks";
-import { showNotification, showNotifications } from "@/stores/thunks/notification-thunks";
+import { useSignup } from "@/hooks/auth/use-signup";
 
 export const SignupForm: React.FC<FromProps> = ({ className }) => {
   const {
@@ -27,39 +23,12 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
     },
   });
 
-  const dispatch = useAppDispatch();
+  const { mutate, isPending } = useSignup();
 
-  const [isPending, startTransition] = useTransition();
-
-  const router = useRouter();
-
-  const onSubmit: SubmitHandler<SignupInput> = async ({
-    name,
-    email,
-    password,
-  }) => {
-    startTransition(async () => {
-      const response = await api.raw("/auth/signup", {
-        method: "POST",
-        body: { name, email, password },
-      });
-
-      if (response.status === 201) {
-        dispatch(
-          showNotification({
-            message: "Signup successfully",
-            type: "info",
-          })
-        )
-        router.push("/verify");
-      }
-
-    })
-  };
   return (
     <form
       className={`container mx-auto mt-8 lg:w-1/2 lg:pl-8 lg:border-l border-base-400 ${className ?? ""}`}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => mutate(data))}
     >
       <h2 className="font-semibold">Sign up</h2>
       <div className="flex flex-col mt-9">

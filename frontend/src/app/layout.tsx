@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "./_components/header";
 import { QueryProvider } from "@/providers/react-query-provider";
 import { ReduxProvider } from "@/providers/redux-provider";
+import { Notifications } from "./_components/notifications/notifications";
 
 const lato = Lato({
   display: "swap",
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en" className={`${lato.variable}`}>
       <body>
         <ReduxProvider>
+          <Notifications/>
           <QueryProvider>
             <Header />
             {children}
