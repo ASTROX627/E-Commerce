@@ -36,7 +36,7 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
           placeholder="Email address"
           id="email"
           autoComplete="email"
-          icon={<IconAlt className="text-base-300" width={24} height={24} />}
+          icon={<IconAlt className="text-neutral" width={24} height={24} />}
           type="email"
           register={register}
           name={"email"}
@@ -62,7 +62,7 @@ export const SigninForm: React.FC<FromProps> = ({ className }) => {
         </Link>
       </div>
       <div className="mt-7 text-center">
-        <button className="h-14 w-full rounded-md bg-base-300 text-white">
+        <button className="h-14 w-full rounded-md bg-neutral text-white">
           {isPending ? "SIGNING IN..." : "SIGN IN"}
         </button>
       </div>

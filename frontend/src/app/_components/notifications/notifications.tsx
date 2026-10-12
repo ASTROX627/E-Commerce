@@ -1,6 +1,7 @@
 "use client";
 
 import { useAppSelector } from "@/hooks/redux-hooks";
+import { NotificationToast } from "./notification-toast";
 
 export const Notifications: React.FC = () => {
   const notifications = useAppSelector(
@@ -14,7 +15,10 @@ export const Notifications: React.FC = () => {
   return (
     <div className="fixed flex flex-col-reverse bottom-3 right-3 gap-3">
       {notifications.map((notification) => (
-        <p key={notification.id}>{notification.message}</p>
+        <NotificationToast
+          key={`notification-${notification.id}`}
+          notification={notification}
+        />
       ))}
     </div>
   );

@@ -4,7 +4,7 @@ import { IconCategories, IconSignin, IconFavorites, IconCard } from "../icons";
 
 export const BottomHeader: React.FC = () => {
   return (
-    <div className="hidden lg:block bg-base-800 mt-5">
+    <div className="hidden lg:block bg-base mt-5">
       <div className="text-white h-10 container mx-auto flex items-center justify-between">
         <div className="flex gap-x-2 text-xl items-center">
           <IconCategories width={24} height={24} />

@@ -34,7 +34,7 @@ export const TextInput = <TFormValues extends FieldValues>({
           placeholder={placeholder}
           {...register(name)}
           {...props}
-          className={`w-full h-10 py-4 px-4.5 border border-base-300 rounded-md text-sm ${hasError ? "border-notification" : ""}`}
+          className={`w-full h-10 py-4 px-4.5 border border-neutral rounded-md text-sm ${hasError ? "border-error" : ""}`}
           aria-invalid={hasError}
         />
 
@@ -47,10 +47,10 @@ export const TextInput = <TFormValues extends FieldValues>({
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <IconEyeOff className="text-base-300" width={22} height={16} />
+                <IconEyeOff className="text-neutral" width={22} height={16} />
               ) : (
                 <IconShowPass
-                  className="text-base-300"
+                  className="text-neutral"
                   width={22}
                   height={16}
                 />
@@ -62,7 +62,7 @@ export const TextInput = <TFormValues extends FieldValues>({
         </div>
       </div>
       {hasError && (
-        <p className="mt-1 text-sm text-notification" id={`${id}-error`}>
+        <p className="mt-1 text-sm text-error" id={`${id}-error`}>
           {error.message}
         </p>
       )}

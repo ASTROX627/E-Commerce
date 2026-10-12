@@ -3,10 +3,7 @@
 import Image from "next/image";
 import {
   IconCard,
-  IconCategories,
-  IconFavorites,
   IconMenu,
-  IconSignin,
 } from "../icons";
 import { TopNavigation } from "./top-navigation";
 import { SearchBox } from "./search-box";

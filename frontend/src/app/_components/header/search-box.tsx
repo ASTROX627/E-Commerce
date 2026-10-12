@@ -8,7 +8,7 @@ export const SearchBox: React.FC = () => {
       <input
         type="text"
         placeholder="Search Products"
-        className="w-full border border-base-300 px-4 py-2 rounded-md h-13.5 lg:w-86.25"
+        className="w-full border border-neutral px-4 py-2 rounded-md h-13.5 lg:w-86.25"
       />
       <div className="absolute inset-y-0 right-0 flex items-center">
         <div className="flex items-center">

@@ -1,0 +1,35 @@
+@layer utilities {
+  .container {
+    @apply w-full max-w-84;
+  }
+
+  @media (min-width: 32rem) {
+    .container {
+      @apply max-w-3xl;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .container {
+      @apply max-w-5xl;
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .container {
+      @apply max-w-7xl;
+    }
+  }
+
+  @media (min-width: 96rem) {
+    .container {
+      max-width: 90rem;
+    }
+  }
+
+  @media (min-width: 120rem) {
+    .container {
+      max-width: 105rem;
+    }
+  }
+}

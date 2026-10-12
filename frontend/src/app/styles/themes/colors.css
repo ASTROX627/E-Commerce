@@ -1,0 +1,28 @@
+:root {
+  --current: currentColor;
+  --ec-c-transparent: oklch(0 0 0 / 0);
+  --ec-c-white: oklch(1 0 0 / 1);
+  --ec-c-dark: oklch(0 0 0 / 1);
+  --ec-c-primary: #4172dc;
+  --ec-c-secondary: #3dc47e;
+  --ec-c-neutral: #C4C4C4;
+  --ec-c-footer: #d1e2eb;
+  --ec-c-base: #262626;
+  --ec-c-warning: oklch(0.72 0.19 50.54 / 1);
+  --ec-c-error: oklch(0.64 0.24 32.01 / 1);
+}
+
+@theme {
+  /* colors */
+  --color-current: var(--current);
+  --color-transparent: var(--ec-c-transparent);
+  --color-white: var(--ec-c-white);
+  --color-dark: var(--ec-c-dark);
+  --color-primary: var(--ec-c-primary);
+  --color-secondary: var(--ec-c-secondary);
+  --color-neutral: var(--ec-c-neutral);
+  --color-footer: var(--ec-c-footer);
+  --color-base: var(--ec-c-base);
+  --color-warning: var(--ec-c-warning);
+  --color-error: var(--ec-c-error);
+}

@@ -46,7 +46,7 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
           label="Email"
           placeholder="Email address"
           id="email"
-          icon={<IconAlt className="text-base-300" width={24} height={24} />}
+          icon={<IconAlt className="text-neutral" width={24} height={24} />}
           type="email"
           autoComplete="email"
           register={register}
@@ -83,7 +83,7 @@ export const SignupForm: React.FC<FromProps> = ({ className }) => {
       <div className="mt-7 text-center">
         <button
           type="submit"
-          className="h-14 w-full rounded-md bg-primary-700 text-white"
+          className="h-14 w-full rounded-md bg-primary text-white"
           disabled={isSubmitting}
         >
           {isPending ? "CREATING ACCOUNT..." : "SIGN UP"}
